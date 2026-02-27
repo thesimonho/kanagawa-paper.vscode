@@ -10,6 +10,15 @@ Kanagawa Paper includes both a dark variant (`ink`) and a light variant (`canvas
 
 Compared to the original Kanagawa theme, `Paper` uses a more muted color palette for syntax highlighting, which is a bit easier on the eyes.
 
+## Upstream Color Sources
+
+For color consistency and parity checks, upstream values come from:
+
+- Palette colors: [`lua/kanagawa-paper/colors.lua`](https://github.com/thesimonho/kanagawa-paper.nvim/blob/master/lua/kanagawa-paper/colors.lua)
+- Theme files:
+  - [`lua/kanagawa-paper/themes/ink.lua`](https://github.com/thesimonho/kanagawa-paper.nvim/blob/master/lua/kanagawa-paper/themes/ink.lua)
+  - [`lua/kanagawa-paper/themes/canvas.lua`](https://github.com/thesimonho/kanagawa-paper.nvim/blob/master/lua/kanagawa-paper/themes/canvas.lua)
+
 ## 👏 Acknowledgements
 
 - [Kanagawa (VSCode)](https://github.com/barklan/kanagawa.vscode)

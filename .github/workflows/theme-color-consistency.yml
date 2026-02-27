@@ -30,6 +30,18 @@ jobs:
             'themes/kanagawa-paper-canvas-color-theme.json',
             'themes/kanagawa-paper-ink-color-theme.json',
           ];
+          const THEME_META = {
+            'themes/kanagawa-paper-ink-color-theme.json': {
+              nvimTheme: 'ink',
+            },
+            'themes/kanagawa-paper-canvas-color-theme.json': {
+              nvimTheme: 'canvas',
+            },
+          };
+          const REQUIRED_SELECTION_KEYS = [
+            'editor.selectionHighlightBackground',
+            'editor.inactiveSelectionBackground',
+          ];
 
           const eventName = process.env.EVENT_NAME || '';
           const prBaseSha = process.env.PR_BASE_SHA || '';
@@ -96,6 +108,75 @@ jobs:
             process.exit(1);
           }
 
+          /**
+           * Parses `M.palette = { ... }` from colors.lua to build a map of palette key to #RRGGBB.
+           */
+          function parsePaletteMap(luaSource) {
+            const blockMatch = luaSource.match(/M\.palette\s*=\s*{([\s\S]*?)\n}\s*\n/);
+            if (!blockMatch) {
+              throw new Error('Failed to parse M.palette block from upstream colors.lua');
+            }
+
+            const map = new Map();
+            for (const line of blockMatch[1].split('\n')) {
+              const entry = line.match(/^\s*([A-Za-z0-9_]+)\s*=\s*"(#[0-9A-Fa-f]{6})"/);
+              if (entry) {
+                map.set(entry[1], entry[2].toLowerCase());
+              }
+            }
+            return map;
+          }
+
+          /**
+           * Resolves ui.bg_visual for a given nvim theme source (ink/canvas) to #RRGGBB.
+           */
+          function parseThemeVisualBase(themeLua, paletteMap, themeName) {
+            const bgVisualMatch = themeLua.match(/bg_visual\s*=\s*([^,\n]+)/);
+            if (!bgVisualMatch) {
+              throw new Error(`Failed to find ui.bg_visual in upstream theme '${themeName}'`);
+            }
+
+            const rawValue = bgVisualMatch[1].trim();
+            const literalHex = rawValue.match(/^"(#[0-9A-Fa-f]{6})"$/);
+            if (literalHex) {
+              return literalHex[1].toLowerCase();
+            }
+
+            const paletteRef = rawValue.match(/^palette\.([A-Za-z0-9_]+)$/);
+            if (!paletteRef) {
+              throw new Error(
+                `Unsupported ui.bg_visual value '${rawValue}' in upstream theme '${themeName}'`
+              );
+            }
+
+            const resolved = paletteMap.get(paletteRef[1]);
+            if (!resolved) {
+              throw new Error(
+                `Failed to resolve palette key '${paletteRef[1]}' from upstream colors.lua`
+              );
+            }
+            return resolved;
+          }
+
+          const paletteMap = parsePaletteMap(colorsLua);
+          const expectedSelectionBaseByTheme = {};
+          for (const { nvimTheme } of Object.values(THEME_META)) {
+            if (expectedSelectionBaseByTheme[nvimTheme]) {
+              continue;
+            }
+
+            const themeUrl =
+              `https://raw.githubusercontent.com/thesimonho/kanagawa-paper.nvim/master/lua/kanagawa-paper/themes/${nvimTheme}.lua`;
+            const themeLua = execSync(`curl -fsSL --retry 3 --retry-delay 2 "${themeUrl}"`, {
+              encoding: 'utf8',
+            });
+            expectedSelectionBaseByTheme[nvimTheme] = parseThemeVisualBase(
+              themeLua,
+              paletteMap,
+              nvimTheme
+            );
+          }
+
           const problems = [];
 
           /**
@@ -121,28 +202,55 @@ jobs:
           for (const file of editedThemes) {
             const raw = fs.readFileSync(file, 'utf8');
             const json = JSON.parse(raw);
+            const meta = THEME_META[file];
+            const expectedBaseHex = meta ? expectedSelectionBaseByTheme[meta.nvimTheme] : null;
 
             walk(json, '', (text, path) => {
               const looseTokens = text.match(/#[0-9A-Fa-f]+/g) || [];
 
               for (const token of looseTokens) {
                 const isSixDigit = /^#[0-9A-Fa-f]{6}$/.test(token);
+                const isEightDigit = /^#[0-9A-Fa-f]{8}$/.test(token);
 
-                if (!isSixDigit) {
+                if (!isSixDigit && !isEightDigit) {
                   problems.push(
-                    `${file}:${path} has malformed or alpha hex token '${token}' (only #RRGGBB allowed)`
+                    `${file}:${path} has malformed hex token '${token}' (allowed: #RRGGBB or #RRGGBBAA)`
                   );
                   continue;
                 }
 
                 const normalized = token.toLowerCase();
-                if (!sourceHexSet.has(normalized)) {
+                const baseHex = normalized.slice(0, 7);
+
+                if (!sourceHexSet.has(baseHex)) {
                   problems.push(
-                    `${file}:${path} uses '${token}' not found in kanagawa-paper.nvim colors.lua`
+                    `${file}:${path} uses '${token}' whose base color '${baseHex}' is not in kanagawa-paper.nvim colors.lua`
                   );
                 }
               }
             });
+
+            if (expectedBaseHex) {
+              for (const key of REQUIRED_SELECTION_KEYS) {
+                const value = json?.colors?.[key];
+                if (typeof value !== 'string') {
+                  problems.push(`${file}:colors.${key} is missing or not a string`);
+                  continue;
+                }
+
+                if (!/^#[0-9A-Fa-f]{8}$/.test(value)) {
+                  problems.push(`${file}:colors.${key} must be an 8-digit hex (#RRGGBBAA)`);
+                  continue;
+                }
+
+                const baseHex = value.toLowerCase().slice(0, 7);
+                if (baseHex !== expectedBaseHex) {
+                  problems.push(
+                    `${file}:colors.${key} must use base '${expectedBaseHex}' from ${meta.nvimTheme}.ui.bg_visual (found '${baseHex}')`
+                  );
+                }
+              }
+            }
           }
 
           if (problems.length > 0) {

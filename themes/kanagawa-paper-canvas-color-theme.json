@@ -35,16 +35,16 @@
     "editor.background": "#e1e1de",
     "editor.findMatchBackground": "#a7956a",
     "editor.foreground": "#73787d",
-    "editor.inactiveSelectionBackground": "#d4cdd4",
-    "editor.selectionHighlightBackground": "#c1b4c1",
+    "editor.inactiveSelectionBackground": "#d4cdd480",
+    "editor.selectionHighlightBackground": "#d4cdd480",
     "editorGroup.border": "#73787d",
     "editorGroupHeader.tabsBackground": "#d1cfc5",
     "editorGroupHeader.tabsBorder": "#cbc8bc",
     "editorGutter.addedBackground": "#7a8c6a",
     "editorGutter.deletedBackground": "#c27672",
     "editorGutter.modifiedBackground": "#7e8faf",
-    "editorIndentGuide.activeBackground1": "#8e8a80",
-    "editorIndentGuide.background1": "#aeaea6",
+    "editorIndentGuide.activeBackground1": "#aeaea6",
+    "editorIndentGuide.background1": "#d1cfc5",
     "editorLineNumber.activeForeground": "#73787d",
     "editorLineNumber.foreground": "#8e8a80",
     "editorOverviewRuler.border": "#d1cfc5",
@@ -91,10 +91,10 @@
     "settings.dropdownBorder": "#aeaea6",
     "settings.headerForeground": "#ecece8",
     "settings.modifiedItemIndicator": "#b28d77",
-    "sideBar.background": "#d1cfc5",
+    "sideBar.background": "#d8d8d2",
     "sideBar.border": "#cbc8bc",
     "sideBar.foreground": "#73787d",
-    "sideBarSectionHeader.background": "#d1cfc5",
+    "sideBarSectionHeader.background": "#d8d8d2",
     "sideBarSectionHeader.border": "#cbc8bc",
     "sideBarSectionHeader.foreground": "#73787d",
     "sideBarTitle.foreground": "#73787d",
@@ -114,11 +114,11 @@
     "tab.activeBackground": "#e1e1de",
     "tab.activeBorder": "#e1e1de",
     "tab.activeBorderTop": "#7e8faf",
-    "tab.activeForeground": "#ecece8",
+    "tab.activeForeground": "#73787d",
     "tab.border": "#cbc8bc",
     "tab.hoverBackground": "#e1e1de",
     "tab.inactiveBackground": "#d1cfc5",
-    "tab.inactiveForeground": "#8e8a80",
+    "tab.inactiveForeground": "#73787d",
     "tab.lastPinnedBorder": "#73787d",
     "tab.selectedBackground": "#e6e6e3",
     "tab.selectedBorderTop": "#9ba1bf",
@@ -140,7 +140,7 @@
     "titleBar.activeBackground": "#d1cfc5",
     "titleBar.activeForeground": "#73787d",
     "titleBar.border": "#cbc8bc",
-    "titleBar.inactiveBackground": "#e1e1de",
+    "titleBar.inactiveBackground": "#d1cfc5",
     "titleBar.inactiveForeground": "#8e8a80",
     "welcomePage.progress.foreground": "#7e8faf",
     "welcomePage.tileBackground": "#cbc8bc",
@@ -159,7 +159,7 @@
       "name": "Comments: Documentation",
       "scope": ["comment.documentation", "comment.block.documentation"],
       "settings": {
-        "foreground": "#7e9579"
+        "foreground": "#9ba98e"
       }
     },
     {
@@ -173,14 +173,14 @@
       "name": "Operators",
       "scope": "keyword.operator",
       "settings": {
-        "foreground": "#8e8a80"
+        "foreground": "#c27672"
       }
     },
     {
       "name": "Keywords",
       "scope": ["keyword", "storage"],
       "settings": {
-        "foreground": "#7880a5"
+        "foreground": "#9e7e98"
       }
     },
     {
@@ -242,7 +242,7 @@
       "name": "Numbers, Characters",
       "scope": ["constant.numeric", "constant.character", "constant"],
       "settings": {
-        "foreground": "#b28d77"
+        "foreground": "#9e7e98"
       }
     },
     {
@@ -263,21 +263,21 @@
       "name": "Strings: Regular Expressions",
       "scope": ["string.regexp", "constant.regexp"],
       "settings": {
-        "foreground": "#7880a5"
+        "foreground": "#c27672"
       }
     },
     {
       "name": "Strings: Symbols",
       "scope": "constant.other.symbol",
       "settings": {
-        "foreground": "#b28d77"
+        "foreground": "#c27672"
       }
     },
     {
       "name": "Punctuation",
       "scope": "punctuation",
       "settings": {
-        "foreground": "#8e8a80"
+        "foreground": "#aeaea6"
       }
     },
     {
@@ -501,23 +501,23 @@
       "foreground": "#7880a5",
       "fontStyle": "bold"
     },
-    "macro": "#b28d77",
+    "macro": "#c27672",
     "method": "#7b958e",
     "namespace": "#73787d",
     "newOperator": "#d8d8d2",
-    "numberLiteral": "#9ba98e",
+    "numberLiteral": "#9e7e98",
     "operator": "#c27672",
-    "parameter": "#8e8a80",
+    "parameter": "#73787d",
     "parameter.declaration": "#b4a88a",
     "parameter.definition": "#b4a88a",
-    "property": "#73787d",
+    "property": "#c27672",
     "property.readonly": "#b28d77",
     "stringLiteral": "#a8826a",
     "struct": "#7b958e",
     "type": "#7b958e",
     "type.defaultLibrary": "#7b958e",
     "typeParameter": "#8e8a80",
-    "variable": "#73787d",
+    "variable": "#7e8faf",
     "variable.readonly": "#b28d77",
     "variable.readonly.defaultLibrary": "#7b958e"
   }
