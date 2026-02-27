@@ -45,6 +45,25 @@
     "editorGutter.modifiedBackground": "#658594",
     "editorIndentGuide.activeBackground1": "#727169",
     "editorIndentGuide.background1": "#54546D",
+    "editorBracketHighlight.foreground1": "#c4746e",
+    "editorBracketHighlight.foreground2": "#a292a3",
+    "editorBracketHighlight.foreground3": "#658594",
+    "editorBracketHighlight.foreground4": "#9d7665",
+    "editorBracketHighlight.foreground5": "#699469",
+    "editorBracketHighlight.foreground6": "#737c73",
+    "editorBracketHighlight.unexpectedBracket.foreground": "#c4746e",
+    "editorBracketPairGuide.activeBackground1": "#c4746e",
+    "editorBracketPairGuide.activeBackground2": "#a292a3",
+    "editorBracketPairGuide.activeBackground3": "#658594",
+    "editorBracketPairGuide.activeBackground4": "#9d7665",
+    "editorBracketPairGuide.activeBackground5": "#699469",
+    "editorBracketPairGuide.activeBackground6": "#737c73",
+    "editorBracketPairGuide.background1": "#c4746e66",
+    "editorBracketPairGuide.background2": "#a292a366",
+    "editorBracketPairGuide.background3": "#65859466",
+    "editorBracketPairGuide.background4": "#9d766566",
+    "editorBracketPairGuide.background5": "#69946966",
+    "editorBracketPairGuide.background6": "#737c7366",
     "editorLineNumber.activeForeground": "#c5c9c5",
     "editorLineNumber.foreground": "#7a8382",
     "editorOverviewRuler.border": "#12120f",
@@ -370,14 +389,14 @@
       "name": "Markup: Changed",
       "scope": "markup.changed",
       "settings": {
-        "foreground": "#0d0c0c"
+        "foreground": "#c4b28a"
       }
     },
     {
       "name": "Markup: Deletion",
       "scope": "markup.deleted",
       "settings": {
-        "foreground": "#0d0c0c"
+        "foreground": "#c4746e"
       }
     },
     {
@@ -391,7 +410,7 @@
       "name": "Markup: Insertion",
       "scope": "markup.inserted",
       "settings": {
-        "foreground": "#0d0c0c"
+        "foreground": "#699469"
       }
     },
     {
@@ -419,7 +438,7 @@
       "name": "Markup: Heading",
       "scope": "markup.heading",
       "settings": {
-        "foreground": "#E46876"
+        "foreground": "#c4746e"
       }
     },
     {
@@ -440,21 +459,21 @@
       "name": "Markup Quote",
       "scope": "markup.quote",
       "settings": {
-        "foreground": "#957FB8"
+        "foreground": "#a292a3"
       }
     },
     {
       "name": "Markup Lists",
       "scope": "markup.list",
       "settings": {
-        "foreground": "#7E9CD8"
+        "foreground": "#658594"
       }
     },
     {
       "name": "Markup Styling",
       "scope": ["markup.bold", "markup.italic"],
       "settings": {
-        "foreground": "#8a9a7b"
+        "foreground": "#9d7665"
       }
     },
     {
@@ -462,7 +481,7 @@
       "scope": "markup.inline.raw",
       "settings": {
         "fontStyle": "",
-        "foreground": "#b6927b"
+        "foreground": "#699469"
       }
     },
     {

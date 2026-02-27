@@ -45,6 +45,25 @@
     "editorGutter.modifiedBackground": "#7e8faf",
     "editorIndentGuide.activeBackground1": "#8e8a80",
     "editorIndentGuide.background1": "#aeaea6",
+    "editorBracketHighlight.foreground1": "#c27672",
+    "editorBracketHighlight.foreground2": "#9e7e98",
+    "editorBracketHighlight.foreground3": "#809ba7",
+    "editorBracketHighlight.foreground4": "#a8826a",
+    "editorBracketHighlight.foreground5": "#7e9579",
+    "editorBracketHighlight.foreground6": "#637263",
+    "editorBracketHighlight.unexpectedBracket.foreground": "#c27672",
+    "editorBracketPairGuide.activeBackground1": "#c27672",
+    "editorBracketPairGuide.activeBackground2": "#9e7e98",
+    "editorBracketPairGuide.activeBackground3": "#809ba7",
+    "editorBracketPairGuide.activeBackground4": "#a8826a",
+    "editorBracketPairGuide.activeBackground5": "#7e9579",
+    "editorBracketPairGuide.activeBackground6": "#637263",
+    "editorBracketPairGuide.background1": "#c2767266",
+    "editorBracketPairGuide.background2": "#9e7e9866",
+    "editorBracketPairGuide.background3": "#809ba766",
+    "editorBracketPairGuide.background4": "#a8826a66",
+    "editorBracketPairGuide.background5": "#7e957966",
+    "editorBracketPairGuide.background6": "#63726366",
     "editorLineNumber.activeForeground": "#73787d",
     "editorLineNumber.foreground": "#8e8a80",
     "editorOverviewRuler.border": "#d1cfc5",
@@ -370,14 +389,14 @@
       "name": "Markup: Changed",
       "scope": "markup.changed",
       "settings": {
-        "foreground": "#73787d"
+        "foreground": "#a7956a"
       }
     },
     {
       "name": "Markup: Deletion",
       "scope": "markup.deleted",
       "settings": {
-        "foreground": "#73787d"
+        "foreground": "#c27672"
       }
     },
     {
@@ -391,7 +410,7 @@
       "name": "Markup: Insertion",
       "scope": "markup.inserted",
       "settings": {
-        "foreground": "#73787d"
+        "foreground": "#7a8c6a"
       }
     },
     {
@@ -440,21 +459,21 @@
       "name": "Markup Quote",
       "scope": "markup.quote",
       "settings": {
-        "foreground": "#7b958e"
+        "foreground": "#9e7e98"
       }
     },
     {
       "name": "Markup Lists",
       "scope": "markup.list",
       "settings": {
-        "foreground": "#7880a5"
+        "foreground": "#809ba7"
       }
     },
     {
       "name": "Markup Styling",
       "scope": ["markup.bold", "markup.italic"],
       "settings": {
-        "foreground": "#7e9579"
+        "foreground": "#a8826a"
       }
     },
     {
@@ -462,7 +481,7 @@
       "scope": "markup.inline.raw",
       "settings": {
         "fontStyle": "",
-        "foreground": "#b28d77"
+        "foreground": "#7e9579"
       }
     },
     {
