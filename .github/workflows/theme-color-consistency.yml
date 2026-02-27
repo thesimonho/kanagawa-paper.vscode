@@ -1,0 +1,157 @@
+name: Theme Color Consistency
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+jobs:
+  validate-theme-colors:
+    name: Validate Theme Colors
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run Theme Color Checks
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          node <<'NODE'
+          const { execSync } = require('node:child_process');
+          const fs = require('node:fs');
+
+          const THEME_FILES = [
+            'themes/kanagawa-paper-canvas-color-theme.json',
+            'themes/kanagawa-paper-ink-color-theme.json',
+          ];
+
+          const eventName = process.env.EVENT_NAME || '';
+          const prBaseSha = process.env.PR_BASE_SHA || '';
+          const pushBeforeSha = process.env.PUSH_BEFORE_SHA || '';
+
+          /**
+           * Returns the base SHA for diffing edited files in CI.
+           */
+          function getBaseSha() {
+            if (eventName === 'pull_request' && prBaseSha) {
+              return prBaseSha;
+            }
+            if (eventName === 'push' && pushBeforeSha && !/^0+$/.test(pushBeforeSha)) {
+              return pushBeforeSha;
+            }
+            return '';
+          }
+
+          /**
+           * Finds edited theme files relative to base SHA. If base SHA is unavailable,
+           * validates both themes so the workflow always returns a pass/fail result.
+           */
+          function getEditedThemeFiles(baseSha) {
+            if (!baseSha) {
+              return THEME_FILES.filter((file) => fs.existsSync(file));
+            }
+
+            const diffOutput = execSync(`git diff --name-only ${baseSha}...HEAD`, { encoding: 'utf8' });
+            const changed = new Set(
+              diffOutput
+                .split('\n')
+                .map((line) => line.trim())
+                .filter(Boolean)
+            );
+
+            return THEME_FILES.filter((file) => changed.has(file));
+          }
+
+          const baseSha = getBaseSha();
+          const editedThemes = getEditedThemeFiles(baseSha);
+
+          console.log(`Event: ${eventName || 'unknown'}`);
+          console.log(`Base SHA: ${baseSha || 'none (validating all theme files)'}`);
+          console.log(`Edited theme files: ${editedThemes.length ? editedThemes.join(', ') : 'none'}`);
+
+          if (editedThemes.length === 0) {
+            console.log('No edited theme files detected. Marking check as pass.');
+            process.exit(0);
+          }
+
+          const colorsLuaUrl =
+            'https://raw.githubusercontent.com/thesimonho/kanagawa-paper.nvim/master/lua/kanagawa-paper/colors.lua';
+
+          const colorsLua = execSync(`curl -fsSL --retry 3 --retry-delay 2 "${colorsLuaUrl}"`, {
+            encoding: 'utf8',
+          });
+
+          const sourceHexSet = new Set(
+            [...colorsLua.matchAll(/#[0-9A-Fa-f]{6}\b/g)].map((match) => match[0].toLowerCase())
+          );
+
+          if (sourceHexSet.size === 0) {
+            console.error('Failed to load any 6-digit hex colors from upstream colors.lua');
+            process.exit(1);
+          }
+
+          const problems = [];
+
+          /**
+           * Recursively scans theme JSON values to find every hex token literal.
+           */
+          function walk(node, path, onString) {
+            if (typeof node === 'string') {
+              onString(node, path);
+              return;
+            }
+            if (Array.isArray(node)) {
+              node.forEach((value, index) => walk(value, `${path}[${index}]`, onString));
+              return;
+            }
+            if (node && typeof node === 'object') {
+              Object.entries(node).forEach(([key, value]) => {
+                const nextPath = path ? `${path}.${key}` : key;
+                walk(value, nextPath, onString);
+              });
+            }
+          }
+
+          for (const file of editedThemes) {
+            const raw = fs.readFileSync(file, 'utf8');
+            const json = JSON.parse(raw);
+
+            walk(json, '', (text, path) => {
+              const looseTokens = text.match(/#[0-9A-Fa-f]+/g) || [];
+
+              for (const token of looseTokens) {
+                const isSixDigit = /^#[0-9A-Fa-f]{6}$/.test(token);
+
+                if (!isSixDigit) {
+                  problems.push(
+                    `${file}:${path} has malformed or alpha hex token '${token}' (only #RRGGBB allowed)`
+                  );
+                  continue;
+                }
+
+                const normalized = token.toLowerCase();
+                if (!sourceHexSet.has(normalized)) {
+                  problems.push(
+                    `${file}:${path} uses '${token}' not found in kanagawa-paper.nvim colors.lua`
+                  );
+                }
+              }
+            });
+          }
+
+          if (problems.length > 0) {
+            console.error('Theme color sanity checks failed:');
+            for (const problem of problems) {
+              console.error(`- ${problem}`);
+            }
+            process.exit(1);
+          }
+
+          console.log('Theme color sanity checks passed.');
+          NODE
