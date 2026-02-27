@@ -1,6 +1,8 @@
 !assets/icon.png
 .github/**
 .vscode/**
+.vscode-test/**
 assets/**
 .gitignore
 *.vsix
+vsc-extension-quickstart.md

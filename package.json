@@ -2,16 +2,16 @@
   "name": "kanagawa-paper",
   "displayName": "Kanagawa Paper",
   "description": "Remixed Kanagawa colourscheme with muted colors. For VSCode.",
-  "version": "1.0.10",
+  "version": "2.0.0",
   "license": "SEE LICENSE IN LICENSE",
   "publisher": "SimonHo",
   "pricing": "Free",
   "icon": "assets/icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sho-87/kanagawa-paper.vscode"
+    "url": "https://github.com/thesimonho/kanagawa-paper.vscode"
   },
-  "homepage": "https://github.com/sho-87/kanagawa-paper.vscode",
+  "homepage": "https://github.com/thesimonho/kanagawa-paper.vscode",
   "sponsor": {
     "url": "https://buymeacoffee.com/simonho"
   },
@@ -31,14 +31,14 @@
   "contributes": {
     "themes": [
       {
-        "label": "Kanagawa Paper",
+        "label": "Kanagawa Paper Ink",
         "uiTheme": "vs-dark",
-        "path": "./themes/kanagawa-paper-color-theme.json"
+        "path": "./themes/kanagawa-paper-ink-color-theme.json"
       },
       {
-        "label": "Kanagawa Wave",
-        "uiTheme": "vs-dark",
-        "path": "./themes/kanagawa-wave-color-theme.json"
+        "label": "Kanagawa Paper Canvas",
+        "uiTheme": "vs",
+        "path": "./themes/kanagawa-paper-canvas-color-theme.json"
       }
     ]
   }
