@@ -1,0 +1,29 @@
+name: "Release Please"
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Release Please
+        id: release
+        uses: googleapis/release-please-action@v4
+      - name: Checkout
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v6
+      - name: Install Node.js
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/setup-node@v6
+      - run: npm install
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Install vsce
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm install -g @vscode/vsce
+      - name: Publish to VS Code Marketplace
+        if: ${{ steps.release.outputs.release_created }}
+        run: vsce publish -p ${{ secrets.VSCE_PAT }}
