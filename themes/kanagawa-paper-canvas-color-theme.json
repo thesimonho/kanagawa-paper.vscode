@@ -190,7 +190,7 @@
     "statusBarItem.prominentForeground": "#ecece8",
     "statusBarItem.remoteBackground": "#7e8faf",
     "statusBarItem.remoteForeground": "#ecece8",
-    "statusBarItem.warningBackground": "#a7957a",
+    "statusBarItem.warningBackground": "#a7956a",
     "statusBarItem.errorBackground": "#c27672",
     "tab.activeBackground": "#e1e1de",
     "tab.activeBorder": "#e1e1de",
@@ -254,7 +254,10 @@
   "tokenColors": [
     {
       "name": "Comments",
-      "scope": ["comment", "punctuation.definition.comment"],
+      "scope": [
+        "comment",
+        "punctuation.definition.comment"
+      ],
       "settings": {
         "fontStyle": "italic",
         "foreground": "#aeaea6"
@@ -262,7 +265,10 @@
     },
     {
       "name": "Comments: Documentation",
-      "scope": ["comment.documentation", "comment.block.documentation"],
+      "scope": [
+        "comment.documentation",
+        "comment.block.documentation"
+      ],
       "settings": {
         "foreground": "#9ba98e"
       }
@@ -283,35 +289,51 @@
     },
     {
       "name": "Keywords",
-      "scope": ["keyword", "storage"],
+      "scope": [
+        "keyword",
+        "storage"
+      ],
       "settings": {
         "foreground": "#9e7e98"
       }
     },
     {
       "name": "Types",
-      "scope": ["storage.type", "support.type"],
+      "scope": [
+        "storage.type",
+        "support.type"
+      ],
       "settings": {
         "foreground": "#7b958e"
       }
     },
     {
       "name": "Language Constants",
-      "scope": ["constant.language", "support.constant", "variable.language"],
+      "scope": [
+        "constant.language",
+        "support.constant",
+        "variable.language"
+      ],
       "settings": {
         "foreground": "#b28d77"
       }
     },
     {
       "name": "Variables",
-      "scope": ["variable", "support.variable"],
+      "scope": [
+        "variable",
+        "support.variable"
+      ],
       "settings": {
         "foreground": "#7b958e"
       }
     },
     {
       "name": "Functions",
-      "scope": ["entity.name.function", "support.function"],
+      "scope": [
+        "entity.name.function",
+        "support.function"
+      ],
       "settings": {
         "fontStyle": "bold",
         "foreground": "#c27672"
@@ -345,7 +367,11 @@
     },
     {
       "name": "Numbers, Characters",
-      "scope": ["constant.numeric", "constant.character", "constant"],
+      "scope": [
+        "constant.numeric",
+        "constant.character",
+        "constant"
+      ],
       "settings": {
         "foreground": "#9e7e98"
       }
@@ -366,7 +392,10 @@
     },
     {
       "name": "Strings: Regular Expressions",
-      "scope": ["string.regexp", "constant.regexp"],
+      "scope": [
+        "string.regexp",
+        "constant.regexp"
+      ],
       "settings": {
         "foreground": "#c27672"
       }
@@ -429,7 +458,10 @@
     },
     {
       "name": "HTML: Entities",
-      "scope": ["constant.character.entity", "punctuation.definition.entity"],
+      "scope": [
+        "constant.character.entity",
+        "punctuation.definition.entity"
+      ],
       "settings": {
         "foreground": "#b28d77"
       }
@@ -448,7 +480,10 @@
     },
     {
       "name": "CSS: Property Names",
-      "scope": ["meta.property-name", "support.type.property-name"],
+      "scope": [
+        "meta.property-name",
+        "support.type.property-name"
+      ],
       "settings": {
         "foreground": "#b28d77"
       }
@@ -508,7 +543,10 @@
     },
     {
       "name": "Markup: Output",
-      "scope": ["markup.output", "markup.raw"],
+      "scope": [
+        "markup.output",
+        "markup.raw"
+      ],
       "settings": {
         "foreground": "#8e8a80"
       }
@@ -557,7 +595,10 @@
     },
     {
       "name": "Markup Styling",
-      "scope": ["markup.bold", "markup.italic"],
+      "scope": [
+        "markup.bold",
+        "markup.italic"
+      ],
       "settings": {
         "foreground": "#a8826a"
       }
@@ -572,7 +613,11 @@
     },
     {
       "name": "Extra: Diff Range",
-      "scope": ["meta.diff.range", "meta.diff.index", "meta.separator"],
+      "scope": [
+        "meta.diff.range",
+        "meta.diff.index",
+        "meta.separator"
+      ],
       "settings": {
         "foreground": "#8e8a80"
       }
