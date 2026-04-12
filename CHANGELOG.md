@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/thesimonho/kanagawa-paper.vscode/compare/v2.2.0...v2.2.1) (2026-04-12)
+
+
+### Bug Fixes
+
+* canvas background colors ([#10](https://github.com/thesimonho/kanagawa-paper.vscode/issues/10)) ([a42fc62](https://github.com/thesimonho/kanagawa-paper.vscode/commit/a42fc629ef8b80dd8fe185680792e5c68e2bd631))
+
 ## [2.2.0](https://github.com/thesimonho/kanagawa-paper.vscode/compare/v2.1.0...v2.2.0) (2026-04-07)
 
 
