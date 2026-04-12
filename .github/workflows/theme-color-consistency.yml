@@ -220,6 +220,11 @@ jobs:
                 }
 
                 const normalized = token.toLowerCase();
+
+                if (isEightDigit && normalized === '#00000000') {
+                  continue;
+                }
+
                 const baseHex = normalized.slice(0, 7);
 
                 if (!sourceHexSet.has(baseHex)) {
