@@ -2,6 +2,9 @@
 
 Remixed Kanagawa colourscheme with muted colors. For VSCode.
 
+> [!IMPORTANT]
+> This extension has now moved to the main [Kanagawa Paper](https://github.com/thesimonho/kanagawa-paper) repo.
+
 ![screenshot](https://github.com/thesimonho/kanagawa-paper.vscode/assets/5199715/65bd8c2c-57bd-4a17-a084-a1a26cbc8dfe)
 
 This is a Visual Studio Code port of the [Kanagawa Paper](https://github.com/thesimonho/kanagawa-paper.nvim) neovim theme. More details, and extra themes for other applications, can be found in that repo.
